@@ -10,7 +10,7 @@ void inicializar()
 {
     glClearColor(0.7,0.7,0.7,0.0);
     glEnable(GL_DEPTH_TEST);
-    gluQuadricDrawStyle(p,GLU_LINE);
+    gluQuadricDrawStyle(p,GLU_FILL);
 }
 
 void graficarEjes()
@@ -47,13 +47,14 @@ void graficar()
     glPushMatrix();
         glRotatef(anguloTronco,0,1,0);
         ///tronco
-        glColor3f(1,0,0);
-        glutWireCube(4);
+        glColor3f(0,0,0);
+        glutSolidSphere(3,32,32);
         glPushMatrix();
             ///cabeza
-            glTranslatef(0,3,0);
-            glColor3f(1,1,1);
-            glutWireSphere(1.5,32,32);
+            glTranslatef(0,4,0);
+            glRotatef(90,1,0,0);
+            glColor3f(0,0,0); gluCylinder(p, 0.5, 0.5, 2, 16, 16);
+
         glPopMatrix();
         glPushMatrix();
             ///BI
@@ -97,21 +98,21 @@ void redimensionar(int w, int h)
 
 void rotarTronco(int i)
 {
-    anguloTronco = anguloTronco + 5;
+    //anguloTronco = anguloTronco + 5;
     glutPostRedisplay();
     glutTimerFunc(500,rotarTronco,1);
 }
 
 void rotarBrazo(int i)
 {
-    anguloBrazo = anguloBrazo + 5;
+    //anguloBrazo = anguloBrazo + 5;
     glutPostRedisplay();
     glutTimerFunc(50,rotarBrazo,2);
 }
 
 void rotarAntebrazo(int i)
 {
-    anguloAntebrazo = anguloAntebrazo + 5;
+    //anguloAntebrazo = anguloAntebrazo + 5;
     glutPostRedisplay();
     glutTimerFunc(250,rotarAntebrazo,3);
 }
