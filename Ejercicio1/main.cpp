@@ -53,28 +53,36 @@ void graficar()
             ///cabeza
             glTranslatef(0,4,0);
             glRotatef(90,1,0,0);
-            glColor3f(0,0,0); gluCylinder(p, 0.5, 0.5, 2, 16, 16);
-
+            glColor3f(1,0,0); gluCylinder(p, 0.5, 0.5, 2, 16, 16);
         glPopMatrix();
+
         glPushMatrix();
-            ///BI
+            ///Conexión BI
             glTranslatef(0,0,2);
-            glRotatef(anguloBrazo,0,0,1);
-            gluCylinder(p, 1.5, 1.5, 6, 16, 16);
+            //glRotatef(anguloBrazo,0,0,1);
+            glutSolidSphere(1.5,32,32);
             glPushMatrix();
-                ///AI
-                glTranslatef(0,0,6);
-                glRotatef(anguloAntebrazo,0,1,0);
-                glColor3f(0,0,0);
-                gluCylinder(p, 1.5, 0.5, 4, 16, 16);
-                glPushMatrix();
-                    ///D11
-                glPopMatrix();
-                glPushMatrix();
-                    ///D12
-                glPopMatrix();
-                glPushMatrix();
-                    ///D13
+              ///Brazo IZ
+              glTranslatef(0,0,1.5);
+              glColor3f(0,0,0);
+              gluCylinder(p, 0.7, 0.7, 6.0, 16, 16);
+                  ///AI
+                  glTranslatef(0,0,5.3);
+                  glRotatef(anguloAntebrazo,0,1,0);
+                  glColor3f(1,0,0);
+                  glutSolidCube(1.5);
+                  glPushMatrix();
+                    ///Brazo IZ2
+                  glTranslatef(0,0,0.2);
+                  glRotatef(90,0,1,0);
+                  glColor3f(0,0,0); gluCylinder(p, 0.5, 0.5, 2.4, 16, 16);
+                  glPushMatrix();
+                    ///Mano
+                   glTranslatef(0,0,4.3);
+                   glRotatef(90,1,0,0);
+                   glColor3f(1,0,0); glutSolidTorus(0.5,1.5,2,9);
+
+                   glPopMatrix();
                 glPopMatrix();
             glPopMatrix();
         glPopMatrix();
@@ -123,7 +131,7 @@ int main(int argc, char** argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(600,400);
     glutInitWindowPosition(100,200);
-    glutCreateWindow("JLPERALTA");
+    glutCreateWindow("Ejercicio");
     inicializar();
 
     glutDisplayFunc(graficar);
