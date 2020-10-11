@@ -81,11 +81,44 @@ void graficar()
                    glTranslatef(0,0,4.3);
                    glRotatef(90,1,0,0);
                    glColor3f(1,0,0); glutSolidTorus(0.5,1.5,2,9);
-
                    glPopMatrix();
                 glPopMatrix();
             glPopMatrix();
         glPopMatrix();
+
+        glPushMatrix();
+            ///Conexión BD
+            glTranslatef(2,0,0);
+            //glRotatef(anguloBrazo,0,0,1);
+            glutSolidSphere(1.5,32,32);
+            glPushMatrix();
+              ///Brazo IZ
+              glTranslatef(1.5,0,0);
+              glRotatef(90,0,1,0);
+              glColor3f(0,0,0);
+              gluCylinder(p, 0.7, 0.7, 6.0, 16, 16);
+                  ///AI
+                  glTranslatef(0,0,5.3);
+                  glRotatef(anguloAntebrazo,0,1,0);
+                  glColor3f(1,0,0);
+                  glutSolidCube(1.5);
+                  glPushMatrix();
+                    ///Brazo IZ2
+                  glRotatef(180,0,1,0);
+                  glTranslatef(0,0,0.2);
+                  glRotatef(90,0,1,0);
+                  glColor3f(0,0,0); gluCylinder(p, 0.5, 0.5, 2.4, 16, 16);
+                  glPushMatrix();
+                    ///Mano
+                   glTranslatef(0,0,4.3);
+                   glRotatef(90,1,0,0);
+                   glColor3f(1,0,0); glutSolidTorus(0.5,1.5,2,9);
+                   glPopMatrix();
+                glPopMatrix();
+            glPopMatrix();
+        glPopMatrix();
+
+
     glPopMatrix();
 
 
