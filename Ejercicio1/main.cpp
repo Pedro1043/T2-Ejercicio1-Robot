@@ -1,10 +1,20 @@
 #include <GL/glut.h>
 
-float anguloTronco=0;
-float anguloBrazo=0;
-float anguloAntebrazo=0;
+
+
+const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
+const GLfloat light_diffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
+const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+const GLfloat light_position[] = { 2.0f, 5.0f, 5.0f, 0.0f };
+
+const GLfloat mat_ambient[]    = { 0.7f, 0.7f, 0.7f, 1.0f };
+const GLfloat mat_diffuse[]    = { 0.8f, 0.8f, 0.8f, 1.0f };
+const GLfloat mat_specular[]   = { 1.0f, 1.0f, 1.0f, 1.0f };
+const GLfloat high_shininess[] = { 100.0f };
+
 
 GLUquadricObj *p = gluNewQuadric();
+
 
 void inicializar()
 {
@@ -42,10 +52,8 @@ void graficar()
 
     graficarEjes();
 
-
-
     glPushMatrix();
-        glRotatef(anguloTronco,0,1,0);
+
         ///tronco
         glColor3f(0,0,0);
         glutSolidSphere(3,32,32);
@@ -59,7 +67,6 @@ void graficar()
         glPushMatrix();
             ///Conexión BI
             glTranslatef(0,0,2);
-            //glRotatef(anguloBrazo,0,0,1);
             glutSolidSphere(1.5,32,32);
             glPushMatrix();
               ///Brazo IZ
@@ -68,7 +75,7 @@ void graficar()
               gluCylinder(p, 0.7, 0.7, 6.0, 16, 16);
                   ///AI
                   glTranslatef(0,0,5.3);
-                  glRotatef(anguloAntebrazo,0,1,0);
+
                   glColor3f(1,0,0);
                   glutSolidCube(1.5);
                   glPushMatrix();
@@ -89,7 +96,6 @@ void graficar()
         glPushMatrix();
             ///Conexión BD
             glTranslatef(2,0,0);
-            //glRotatef(anguloBrazo,0,0,1);
             glutSolidSphere(1.5,32,32);
             glPushMatrix();
               ///Brazo IZ
@@ -99,7 +105,7 @@ void graficar()
               gluCylinder(p, 0.7, 0.7, 6.0, 16, 16);
                   ///AI
                   glTranslatef(0,0,5.3);
-                  glRotatef(anguloAntebrazo,0,1,0);
+
                   glColor3f(1,0,0);
                   glutSolidCube(1.5);
                   glPushMatrix();
@@ -121,8 +127,6 @@ void graficar()
 
     glPopMatrix();
 
-
-
     glutSwapBuffers();
 }
 
@@ -137,26 +141,6 @@ void redimensionar(int w, int h)
 }
 
 
-void rotarTronco(int i)
-{
-    //anguloTronco = anguloTronco + 5;
-    glutPostRedisplay();
-    glutTimerFunc(500,rotarTronco,1);
-}
-
-void rotarBrazo(int i)
-{
-    //anguloBrazo = anguloBrazo + 5;
-    glutPostRedisplay();
-    glutTimerFunc(50,rotarBrazo,2);
-}
-
-void rotarAntebrazo(int i)
-{
-    //anguloAntebrazo = anguloAntebrazo + 5;
-    glutPostRedisplay();
-    glutTimerFunc(250,rotarAntebrazo,3);
-}
 
 int main(int argc, char** argv)
 {
@@ -169,9 +153,22 @@ int main(int argc, char** argv)
 
     glutDisplayFunc(graficar);
     glutReshapeFunc(redimensionar);
-    glutTimerFunc(500,rotarTronco,1);
-    glutTimerFunc(50,rotarBrazo,2);
-    glutTimerFunc(250,rotarAntebrazo,3);
+
+
+    glEnable(GL_LIGHT0);
+    glEnable(GL_NORMALIZE);
+    glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHTING);
+
+    glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+
+    glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
+    glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
 
     glutMainLoop();
 
