@@ -3,8 +3,28 @@
 float movX = 0;
 float movY = 0;
 float movZ = 0;
-
+float cabeza = 0;
 float varRotar = 360;
+
+///---------------------------------------------------------------
+///PARTE IZQUIERDA
+
+
+float conexionBi = 360;
+
+float brazoIz = 360;
+
+float brazoIz2 = 360;
+
+///----------------------------------------------------------------
+///PARTE DERECHA
+
+float conexionBe = 360;
+
+float brazoDe = 360;
+
+float brazoDe2 = 360;
+
 
 
 const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
@@ -70,6 +90,7 @@ void graficar()
         glColor3f(0,0,0); glutSolidSphere(3,32,32);
         glPushMatrix();
             ///cabeza
+            glRotatef(cabeza,0,1,0);
             glTranslatef(0,4,0);
             glRotatef(90,1,0,0);
             glColor3f(1,0,0); gluCylinder(p, 0.5, 0.5, 2, 16, 16);
@@ -77,10 +98,12 @@ void graficar()
 
         glPushMatrix();
             ///Conexión BI
+            glRotatef(conexionBi,1,0,0);
             glTranslatef(0,0,2);
             glutSolidSphere(1.5,32,32);
             glPushMatrix();
               ///Brazo IZ
+              glRotatef(brazoIz,0,0,1);
               glTranslatef(0,0,1.5);
               glColor3f(0,0,0);
               gluCylinder(p, 0.7, 0.7, 6.0, 16, 16);
@@ -91,6 +114,7 @@ void graficar()
                   glutSolidCube(1.5);
                   glPushMatrix();
                     ///Brazo IZ2
+                  glRotatef(brazoIz2,1,0,0);
                   glTranslatef(0,0,0.2);
                   glRotatef(90,0,1,0);
                   glColor3f(0,0,0); gluCylinder(p, 0.5, 0.5, 2.4, 16, 16);
@@ -103,24 +127,27 @@ void graficar()
                 glPopMatrix();
             glPopMatrix();
         glPopMatrix();
-
+///--------------------------------------------------------------------------------------
         glPushMatrix();
             ///Conexión BD
+            glRotatef(conexionBe,0,0,1);
             glTranslatef(2,0,0);
             glutSolidSphere(1.5,32,32);
             glPushMatrix();
-              ///Brazo IZ
+              ///Brazo DE
+              glRotatef(brazoDe,1,0,0);
               glTranslatef(1.5,0,0);
               glRotatef(90,0,1,0);
               glColor3f(0,0,0);
               gluCylinder(p, 0.7, 0.7, 6.0, 16, 16);
-                  ///AI
+                  ///AD
                   glTranslatef(0,0,5.3);
 
                   glColor3f(1,0,0);
                   glutSolidCube(1.5);
                   glPushMatrix();
-                    ///Brazo IZ2
+                    ///Brazo DE2
+                  glRotatef(brazoDe2,1,0,0);
                   glRotatef(180,0,1,0);
                   glTranslatef(0,0,0.2);
                   glRotatef(90,0,1,0);
@@ -175,8 +202,61 @@ static void key(unsigned char key, int x, int y)
         case 'd' :
             varRotar-=2.5;
         break;
-    }
 
+        case '7':
+            cabeza+=5;
+        break;
+
+        case '8':
+            conexionBi-=5;
+        break;
+
+        case '9':
+            conexionBi+=5;
+        break;
+
+        case '4':
+            brazoIz+=5;
+        break;
+
+        case '5':
+            brazoIz-=5;
+        break;
+
+        case '6':
+            brazoIz2+=5;
+        break;
+
+        case '1':
+            brazoIz2-=5;
+        break;
+
+        ///------------------------------------------------------------------------------------------------------------------------
+
+        case 'r':
+            conexionBe+=5;
+        break;
+
+        case 't':
+            conexionBe-=5;
+        break;
+
+        case 'y':
+            brazoDe+=5;
+        break;
+
+        case 'u':
+            brazoDe-=5;
+        break;
+
+        case 'i':
+            brazoDe2+=5;
+        break;
+
+        case 'o':
+            brazoDe2-=5;
+        break;
+    }
     glutPostRedisplay();
 }
 
