@@ -1,5 +1,10 @@
 #include <GL/glut.h>
 
+float movX = 0;
+float movY = 0;
+float movZ = 0;
+
+float varRotar = 360;
 
 
 const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
@@ -38,7 +43,9 @@ void graficarEjes()
         glColor3f(0,0,1);
         glVertex3f(0,0,0);
         glVertex3f(0,0,50);
+        glColor3f(0,1,0);
     glEnd();
+
 }
 
 void graficar()
@@ -54,9 +61,13 @@ void graficar()
 
     glPushMatrix();
 
+    glTranslatef(movX,movY,movZ);
+    glRotatef(varRotar,0,1,0);
+
+
         ///tronco
-        glColor3f(0,0,0);
-        glutSolidSphere(3,32,32);
+
+        glColor3f(0,0,0); glutSolidSphere(3,32,32);
         glPushMatrix();
             ///cabeza
             glTranslatef(0,4,0);
@@ -140,6 +151,35 @@ void redimensionar(int w, int h)
 
 }
 
+static void key(unsigned char key, int x, int y)
+{
+    switch (key)
+    {
+        case 'w' :
+            movX++;
+            movZ++;
+        break;
+        case 's' :
+            movX--;
+            movZ--;
+        break;
+        case 'q' :
+            movY++;
+        break;
+        case 'e' :
+            movY--;
+        break;
+        case 'a' :
+            varRotar+=2.5;
+        break;
+        case 'd' :
+            varRotar-=2.5;
+        break;
+    }
+
+    glutPostRedisplay();
+}
+
 
 
 int main(int argc, char** argv)
@@ -151,9 +191,11 @@ int main(int argc, char** argv)
     glutCreateWindow("Ejercicio");
     inicializar();
 
-    glutDisplayFunc(graficar);
-    glutReshapeFunc(redimensionar);
 
+    glutDisplayFunc(graficar);
+
+    glutReshapeFunc(redimensionar);
+    glutKeyboardFunc(key);
 
     glEnable(GL_LIGHT0);
     glEnable(GL_NORMALIZE);
